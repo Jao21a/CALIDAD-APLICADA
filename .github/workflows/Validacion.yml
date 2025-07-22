@@ -1,4 +1,5 @@
-name: Pruebavalidacion
+# .github/workflows/validacion.yml
+name: Validación de HTML y CSS
 
 on:
   push:
@@ -8,25 +9,27 @@ on:
 
 jobs:
   validate:
-    name: HTML & CSS Validation
+    name: Validar HTML & CSS
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install validator CLIs
-        run: |
-          npm install -g html-validator-cli
-          npm install -g css-validator
+    - name: Instalar validadores
+      run: |
+        npm install -g html-validator-cli css-validator
 
-      - name: Validator HTML
-        run: html-validator --file=scenario11/listedUsers/index.html --verbose
+    - name: Validar HTML
+      run: |
+        html-validator --file=./index.html --verbose
 
-      - name: Validator CSS
-        run: css-validator scenario11/listedUsers/css/styles.css
+    - name: Validar CSS
+      run: |
+        css-validator ./styles.css
+
