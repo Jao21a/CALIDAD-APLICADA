@@ -1,0 +1,32 @@
+name: PruebaCI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar archivos del proyecto
+        run: |
+          echo "Mostrando archivos HTML, CSS y JS"
+          ls -l Index.html styles.css script.js
+
+      - name: Verificar existencia de archivos clave
+        run: |
+          test -f Index.html && echo "Index.html encontrado"
+          test -f styles.css && echo "styles.css encontrado"
+          test -f script.js && echo "script.js encontrado"
+
+      - name: Validar contenido básico
+        run: |
+          echo "Primeras líneas de index.html:"
+          head -n 10 Index.html || echo "Index.html no encontrado"
