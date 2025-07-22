@@ -1,0 +1,32 @@
+name: Pruebavalidacion
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    name: HTML & CSS Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install validator CLIs
+        run: |
+          npm install -g html-validator-cli
+          npm install -g css-validator
+
+      - name: Validator HTML
+        run: html-validator --file=scenario11/listedUsers/index.html --verbose
+
+      - name: Validator CSS
+        run: css-validator scenario11/listedUsers/css/styles.css
