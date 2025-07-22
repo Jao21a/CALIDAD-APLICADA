@@ -1,0 +1,227 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Almacén</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <button id="sidebar-toggle" class="btn btn-secondary">☰</button>
+    <div class="logo">Gestión de Almacén</div>
+    <div class="user-controls">
+      <span>👤 Juan</span>
+      <button class="btn btn-secondary">🔔</button>
+      <button class="btn btn-secondary">🚪</button>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <ul>
+      <li><a href="#" data-section="dashboard" class="active">Dashboard</a></li>
+      <li><a href="#" data-section="inventory">Inventario</a></li>
+      <li><a href="#" data-section="entries">Órdenes de Entrada</a></li>
+      <li><a href="#" data-section="exits">Órdenes de Salida</a></li>
+      <li><a href="#" data-section="suppliers">Proveedores</a></li>
+      <li><a href="#" data-section="clients">Clientes</a></li>
+      <li><a href="#" data-section="reports">Reportes</a></li>
+      <li><a href="#" data-section="settings">Configuración</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <!-- Dashboard -->
+    <section id="dashboard" class="section">
+      <div class="kpi-cards">
+        <div class="card"><h3>Total de SKU activos</h3><p id="total-sku">0</p></div>
+        <div class="card"><h3>Valor total de inventario</h3><p id="valor-inventario">$0</p></div>
+        <div class="card"><h3>Pedidos pendientes</h3><p id="pedidos-pendientes">0</p></div>
+        <div class="card"><h3>Entradas del día</h3><p id="entradas-dia">0</p></div>
+      </div>
+    </section>
+
+    <!-- Inventario -->
+    <section id="inventory" class="section hidden">
+      <h2>Inventario</h2>
+      <div class="table-container">
+        <div class="search-bar">
+          <input type="text" id="inventory-search" placeholder="Buscar producto...">
+        </div>
+        <table id="inventory-table">
+          <thead>
+            <tr>
+              <th>SKU</th><th>Descripción</th><th>Categoría</th><th>Ubicación</th><th>Stock</th><th>Mínimo</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="new-inventory-btn" class="btn btn-primary">+ Nuevo producto</button>
+      </div>
+    </section>
+
+    <!-- Órdenes de Entrada -->
+    <section id="entries" class="section hidden">
+      <h2>Órdenes de Entrada</h2>
+      <div class="table-container">
+        <div class="search-bar">
+          <input type="text" id="entries-search" placeholder="Buscar orden...">
+        </div>
+        <table id="entries-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Fecha</th><th>Proveedor</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="new-entry-btn" class="btn btn-primary">+ Nueva Orden</button>
+      </div>
+    </section>
+
+    <!-- Órdenes de Salida -->
+    <section id="exits" class="section hidden">
+      <h2>Órdenes de Salida</h2>
+      <div class="table-container">
+        <div class="search-bar">
+          <input type="text" id="exits-search" placeholder="Buscar orden...">
+        </div>
+        <table id="exits-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Fecha</th><th>Cliente</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="new-exit-btn" class="btn btn-primary">+ Nueva Orden de Salida</button>
+      </div>
+    </section>
+
+    <!-- Proveedores -->
+    <section id="suppliers" class="section hidden">
+      <h2>Proveedores</h2>
+      <div class="table-container">
+        <div class="search-bar">
+          <input type="text" id="suppliers-search" placeholder="Buscar proveedor...">
+        </div>
+        <table id="suppliers-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Nombre</th><th>Contacto</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="new-supplier-btn" class="btn btn-primary">+ Nuevo Proveedor</button>
+      </div>
+    </section>
+
+    <!-- Clientes -->
+    <section id="clients" class="section hidden">
+      <h2>Clientes</h2>
+      <div class="table-container">
+        <div class="search-bar">
+          <input type="text" id="clients-search" placeholder="Buscar cliente...">
+        </div>
+        <table id="clients-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Nombre</th><th>Contacto</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="new-client-btn" class="btn btn-primary">+ Nuevo Cliente</button>
+      </div>
+    </section>
+
+    <!-- Reportes -->
+    <section id="reports" class="section hidden">
+      <h2>Reportes</h2>
+      <button id="export-inventory" class="btn btn-secondary">Exportar Inventario</button>
+      <button id="export-entries" class="btn btn-secondary">Exportar Órdenes de Entrada</button>
+      <button id="export-exits" class="btn btn-secondary">Exportar Órdenes de Salida</button>
+    </section>
+
+    <!-- Configuración -->
+    <section id="settings" class="section hidden">
+      <h2>Configuración</h2>
+      <div class="form-group">
+        <label for="low-stock-threshold">Umbral de stock bajo:</label>
+        <input type="number" id="low-stock-threshold" value="5">
+      </div>
+      <div class="form-group">
+        <label for="currency-symbol">Símbolo de moneda:</label>
+        <input type="text" id="currency-symbol" value="$">
+      </div>
+      <button id="save-settings-btn" class="btn btn-primary">Guardar Configuración</button>
+    </section>
+  </main>
+
+  <!-- Modales -->
+  <!-- Inventario -->
+  <div id="modal-inventory" class="modal">
+    <div class="modal-content">
+      <span id="close-inventory-modal" class="close-modal">&times;</span>
+      <h2 id="inventory-modal-title">Registrar Producto</h2>
+      <input id="inv-sku" type="text" placeholder="SKU"><br><br>
+      <input id="inv-desc" type="text" placeholder="Descripción"><br><br>
+      <input id="inv-cat" type="text" placeholder="Categoría"><br><br>
+      <input id="inv-ubic" type="text" placeholder="Ubicación"><br><br>
+      <input id="inv-stock" type="number" placeholder="Stock"><br><br>
+      <input id="inv-min-stock" type="number" placeholder="Stock mínimo"><br><br>
+      <button id="save-inventory-btn" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+
+  <!-- Entrada -->
+  <div id="modal-entry" class="modal">
+    <div class="modal-content">
+      <span id="close-entry-modal" class="close-modal">&times;</span>
+      <h2 id="entry-modal-title">Nueva Orden de Entrada</h2>
+      <input id="entry-id" type="text" placeholder="ID"><br><br>
+      <input id="entry-date" type="date"><br><br>
+      <input id="entry-supplier" type="text" placeholder="Proveedor"><br><br>
+      <button id="save-entry-btn" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+
+  <!-- Salida -->
+  <div id="modal-exit" class="modal">
+    <div class="modal-content">
+      <span id="close-exit-modal" class="close-modal">&times;</span>
+      <h2 id="exit-modal-title">Nueva Orden de Salida</h2>
+      <input id="exit-id" type="text" placeholder="ID"><br><br>
+      <input id="exit-date" type="date"><br><br>
+      <input id="exit-client" type="text" placeholder="Cliente"><br><br>
+      <button id="save-exit-btn" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+
+  <!-- Proveedor -->
+  <div id="modal-supplier" class="modal">
+    <div class="modal-content">
+      <span id="close-supplier-modal" class="close-modal">&times;</span>
+      <h2 id="supplier-modal-title">Nuevo Proveedor</h2>
+      <input id="supplier-name" type="text" placeholder="Nombre"><br><br>
+      <input id="supplier-contact" type="text" placeholder="Contacto"><br><br>
+      <button id="save-supplier-btn" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+
+  <!-- Cliente -->
+  <div id="modal-client" class="modal">
+    <div class="modal-content">
+      <span id="close-client-modal" class="close-modal">&times;</span>
+      <h2 id="client-modal-title">Nuevo Cliente</h2>
+      <input id="client-name" type="text" placeholder="Nombre"><br><br>
+      <input id="client-contact" type="text" placeholder="Contacto"><br><br>
+      <button id="save-client-btn" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
